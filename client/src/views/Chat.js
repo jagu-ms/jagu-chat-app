@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Spinner} from 'reactstrap';
-import { ContactHeader, Contacts, ChatHeader, Messages, MessageForm, UserProfile} from 'components';
+import { ContactHeader, Contacts, ChatHeader, Messages, MessageForm, UserProfile, EditProfile} from 'components';
 import socketIO from 'socket.io-client';
 import Auth from 'Auth';
 
@@ -10,10 +10,7 @@ class Chat extends React.Component {
         contacts:[],
         contact: {},
         userProfile: false,
-        messages: [],
-        connected: false,
-        socket: {},
-        user: {}
+        profile: false,
     };
     
     
@@ -35,6 +32,7 @@ class Chat extends React.Component {
             })
         });
         socket.on('new_user', this.onNewUser);
+        socket.on('update_user', this.onUpdateUser);
         socket.on('message', this.onNewMessage);
         socket.on('user_status', this.updateUsersState);
         socket.on('typing', this.onTypingMessage);
@@ -51,6 +49,25 @@ class Chat extends React.Component {
         let contacts = this.state.contacts.concat(user);
         this.setState({contacts});
     }
+
+    onUpdateUser = user => {
+        if (this.state.user.id === user.id) {
+            this.setState({user});
+            Auth.setUser(user);
+            return;
+        }
+
+        let contacts = this.state.contacts;
+        contacts.forEach((element, index) => {
+            if(element.id === user.id) {
+                contacts[index] = user;
+                contacts[index].status = element.status;
+            }
+        });
+
+        this.setState({contacts});
+        if (this.state.contact.id === user.id) this.setState({contact: user});
+    };
 
     onNewMessage = message => {
         if(message.sender === this.state.contact.id){
@@ -108,8 +125,12 @@ class Chat extends React.Component {
         this.setState({userProfile: !this.state.userProfile})
     }
 
+    profileToggle = () => {
+        this.setState({profile: !this.state.profile})
+    }
+
     render() {
-        const {connected, contact, contacts, messages } = this.state;
+        const {connected, contact, contacts, messages, user } = this.state;
         if(!connected || !contacts || !messages){
             return <Spinner id="loader" color="success" />
         }
@@ -117,7 +138,7 @@ class Chat extends React.Component {
         return (
             <Row className="h-100 sections-direction">
                 <div id="contacts-section" className="col-6 col-md-4">
-                    <ContactHeader/>
+                    <ContactHeader user={user} toggle={this.profileToggle} />
                     <Contacts
                         contacts={contacts}
                         messages={messages}
@@ -127,6 +148,11 @@ class Chat extends React.Component {
                         contact={this.state.contact}
                         toggle={this.userProfileToggle}
                         open={this.state.userProfile}
+                    />
+                    <EditProfile
+                        user={this.state.user}
+                        toggle={this.profileToggle}
+                        open={this.state.profile}
                     />
                 </div>
                 <div id="messages-section" className="col-6 col-md-8">

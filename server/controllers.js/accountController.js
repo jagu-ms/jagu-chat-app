@@ -1,7 +1,7 @@
 exports.profile = (req, res, next) => {
     const user = req.user;
-    user.name = req.user.name;
-    user.about = req.user.about;
+    user.name = req.body.name;
+    user.about = req.body.about;
     user.avatar = req.file ? req.file.filename : user.avatar;
     
     user.save()
