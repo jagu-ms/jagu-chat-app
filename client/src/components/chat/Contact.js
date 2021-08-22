@@ -1,6 +1,8 @@
 import React from 'react';
 import Avatar from 'components/Avatar';
 import moment from 'moment';
+import 'moment/locale/en';
+moment.locale('en');
 import { Badge } from 'reactstrap';
 
 const Contact = props => (
