@@ -12,7 +12,7 @@ const Contact = props => (
         <div className="w-50">
             <div className="name">{props.contact.name}</div>
             <div className="small last-message">
-                {props.message ? props.message.content : 'انقر هنا لبدء المحادثة' }
+                {props.message ? props.message.content : 'Click here to start chating'}
             </div>
         </div>
         <div className="flex-grow-1 text-right">
