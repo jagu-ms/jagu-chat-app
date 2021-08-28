@@ -5,6 +5,14 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose');
 const createError = require('http-errors');
+const cors = require('cors');
+
+const corsOptions ={
+    origin:'http://localhost:3001', 
+    credentials:true, //access-control-allow-credentials:true
+    optionSuccessStatus:200
+}
+
 require('./socket-handler');
 
 var indexRouter = require('./routes/index');
@@ -12,6 +20,7 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+app.use(cors(corsOptions));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

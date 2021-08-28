@@ -1,0 +1,4 @@
+server/node_modules/
+chat-mobile/node_modules/
+chat-mobile/.expo/
+client/node_modules/

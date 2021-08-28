@@ -9,9 +9,14 @@ import SignUpScreen from '../screens/SignUpScreen';
 let config = {headerMode: "none"};
 
 export default createAppContainer(
-    createStackNavigator({
-        login: LoginScreen,
-        home: HomeScreen,
-        signup: SignUpScreen
+    createSwitchNavigator({
+        Guest: createStackNavigator({
+            login: LoginScreen,
+            signup: SignUpScreen,
+        }, config),
+        Auth: createStackNavigator({
+            home: HomeScreen,
+        }, config)
     }, config)
+    
 );
