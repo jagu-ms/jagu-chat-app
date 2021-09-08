@@ -65,7 +65,7 @@ export default class LoginScreen extends Component {
 
     render() {
         return (
-            <Container>
+            <Container style={styles.containerColor}>
                 <Loader title={Strings.PLEASE_WAIT} loading={this.state.isLoading} />
                 <KeyboardAvoidingView behavior='padding' style={{flex: 1 }}>
                     <Content>
@@ -95,10 +95,10 @@ export default class LoginScreen extends Component {
                                 />
                                 <Icon name='eye' style={styles.icon}/>
                             </Item>
-                            <Button rounded info  style={styles.button} onPress={this.login}>
+                            <Button rounded danger  style={styles.button} onPress={this.login}>
                                 <Text>{Strings.LOGIN}</Text>
                             </Button> 
-                            <Button rounded bordered dark  style={styles.button} onPress={this.navTorSignUp}>
+                            <Button rounded bordered light  style={styles.button} onPress={this.navTorSignUp}>
                                 <Text>{Strings.SIGNUP}</Text>
                             </Button> 
                         </View>

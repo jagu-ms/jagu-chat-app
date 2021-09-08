@@ -4,6 +4,10 @@ import { w, h } from '../../api/Dimensions';
 import { Colors } from '../../config'
 
 const styles = StyleSheet.create({
+    containerColor: {
+        backgroundColor: Colors.BLACK,
+        color: Colors.WHITE
+    },
     logoContainer: {
         backgroundColor: Colors.GRAY
     },
@@ -15,16 +19,18 @@ const styles = StyleSheet.create({
         marginBottom: h(10),
     },
     icon: {
-        color: Colors.GRAY
+        color: Colors.WHITE
     },
     title:{
-        color: Colors.GRAY,
+        color: Colors.WHITE,
         fontSize: 26,
         marginBottom: 20
     },
     input: {
         height: 45,
-        textAlign: "right"
+        textAlign: "right",
+        marginLeft: 50,
+        color: Colors.WHITE
     },
     form: {
         alignItems: 'center',
@@ -38,7 +44,7 @@ const styles = StyleSheet.create({
     },
     button: {
         alignSelf: 'center',
-        marginBottom: 20
+        marginBottom: 20,
     },
 });
 

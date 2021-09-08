@@ -18,7 +18,7 @@ io.on('connection', socket => {
 });
 
 const onSocketConnected = (socket) => {
-    console.log('New client connected' + socket.id);
+    console.log('New client connected ' + socket.id);
     //room creating
     socket.join(socket.user.id);
     //this id owner is connected now

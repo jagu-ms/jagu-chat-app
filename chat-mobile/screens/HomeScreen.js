@@ -1,31 +1,43 @@
 import React, {Component} from 'react';
 import { Container, Content, List } from 'native-base';
 import { HomeHeader, Contact } from '../components';
-import {Strings} from '../config';
+import {Auth, Strings} from '../config';
+import { withChatContext} from '../context/ChatProvider';
 
-export default class HomeScreen extends Component {
+class HomeScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            contacts: [
-                {id: 1, name: '1'},
-                {id: 2, name: '2'},
-                {id: 3, name: '3'},
-                {id: 4, name: '4'}
-            ],
-            messages: [
-                {sender: 4, receiver: 1, content: 'hello'},
-                {sender: 2, receiver: 4, content: 'hello'}
-            ]
+            search: "",
+        };
+        this._init();
+    }
+
+    // Connect to the server.
+    _init = async () => {
+        let socket = await this.props.chat.connect();
+        socket.on('error', this.onSocketError);
+        this.props.chat.loadUserAccount();
+    }
+
+    onSocketError = async error => {
+        if(err === 'auth_error'){
+            await Auth.logout();
+            this.props.navigation.navigate('login');
         }
     }
 
+    onMenuClick = () => this.props.navigation.navigate('editProfile');
+
     onContactClick = contact => {
-        console.log(contact.name);
-    }
+        this.props.chat.setCurrentContact(contact);
+        this.props.navigation.navigate("chat");
+    };
+
+    onSearchChange = search => this.setState({search});
 
     renderContact = (contact, i) => {
-       // if(!contact.name.includes(this.state.search)) return null;
+        if(!contact.name.includes(this.state.search)) return null;
         contact = this.setMessageAndCounter(contact);
         return (
             <Contact key={i} contact={contact} onClick={this.onContactClick} />
@@ -33,7 +45,7 @@ export default class HomeScreen extends Component {
     }
 
     setMessageAndCounter = contact => {
-        let messages = this.state.messages.filter(
+        let messages = this.props.chat.messages.filter(
             e => e.sender === contact.id || e.receiver === contact.id
         );
         contact.lastMessage = messages[messages.length - 1];
@@ -43,14 +55,20 @@ export default class HomeScreen extends Component {
 
     render() {
         return (
-            <Container>
-                <HomeHeader title={Strings.TITLE_CONTACTS} />
+            <Container >
+                <HomeHeader 
+                    title={Strings.TITLE_CONTACTS}
+                    onSearchChange={this.onSearchChange}
+                    onMenuClick={this.onMenuClick}
+                />
                 <Content>
                     <List>
-                        {this.state.contacts.map((contact, i) => this.renderContact(contact,i))}
+                        {this.props.chat.contacts.map((contact, i) => this.renderContact(contact,i))}
                     </List>
                 </Content>
             </Container>
         );
     };
 }
+
+export default withChatContext(HomeScreen);

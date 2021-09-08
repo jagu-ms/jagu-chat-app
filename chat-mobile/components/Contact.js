@@ -26,7 +26,7 @@ export default ({ contact, onClick }) => {
             <Body>
                 <Text style={styles.right}>{ name }</Text>
                 <Text note style={styles.right}>
-                        {content || Strings.CLICK_HERE_TO_START_CHAT }
+                        {content || Strings.CLICK_HERE_TO_START_CHAT}
                 </Text>
             </Body>
             <Right style={styles.marginRight}>
@@ -56,6 +56,6 @@ const styles = StyleSheet.create({
         width: 10,
         height: 10,
         left: 0,
-        top: 15
+        top: 5
     }
 });

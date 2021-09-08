@@ -3,6 +3,7 @@ import * as Font from 'expo-font';
 import AppLoading from  'expo-app-loading'; 
 import AppNavigation from './config/routes';
 import { Root } from 'native-base';
+import { ChatProvider } from './context/ChatProvider';
 
 class App extends React.Component {
     constructor(props){
@@ -32,9 +33,11 @@ class App extends React.Component {
             );
         }
         return (
-            <Root>
-                <AppNavigation/>
-            </Root>
+            <ChatProvider>
+                <Root>
+                    <AppNavigation/>
+                </Root>
+            </ChatProvider>
         );
     }
 }

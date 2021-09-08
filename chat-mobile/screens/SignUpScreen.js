@@ -63,7 +63,7 @@ export default class SignUpScreen extends Component {
 
     render() {
         return (
-            <Container>
+            <Container style={styles.containerColor}>
                 <Loader title={Strings.PLEASE_WAIT} loading={this.state.isLoading} />
                 <KeyboardAvoidingView behavior='padding' style={{flex: 1 }}>
                     <Content>
@@ -101,10 +101,10 @@ export default class SignUpScreen extends Component {
                                 />
                                 <Icon name='eye' style={styles.icon}/>
                             </Item>
-                            <Button rounded info  style={styles.button} onPress={this.signup}>
+                            <Button rounded danger style={styles.button} onPress={this.signup}>
                                 <Text>{Strings.SEND}</Text>
                             </Button> 
-                            <Button rounded bordered dark  style={styles.button} onPress={this.backToLogin}>
+                            <Button rounded bordered light  style={styles.button} onPress={this.backToLogin}>
                                 <Text>{Strings.BACK_TO_LOGIN}</Text>
                             </Button> 
                         </View>
