@@ -27,6 +27,10 @@ class Chat extends React.Component {
         socket.on('data', (user, contacts, messages, users) => {
             
             let contact = contacts[0] || {};
+            /* About messages. we have all messages that are sent from me and others are send
+            to me .the condition is in server/socket-handler.js/line 69. Then we will filter 
+            them as messages that are sent to me from this contact, and others that are sent
+             from me to this contact. The conditions are in serve/src/views/Chat.js line 178 */ 
             this.setState({ messages, contacts, user, contact} ,() => {
                 this.updateUsersState(users);
             })
@@ -129,6 +133,12 @@ class Chat extends React.Component {
         this.setState({profile: !this.state.profile})
     }
 
+    // mine, socket disconnect
+    logout = () => {
+        this.state.socket.disconnect();
+        this.setState({ contacts: [], messages: [], contact: {}});
+    }
+
     render() {
         const {connected, contact, contacts, messages, user } = this.state;
         if(!connected || !contacts || !messages){
@@ -160,6 +170,7 @@ class Chat extends React.Component {
                         contact={contact}
                         typing={this.state.typing} 
                         toggle={this.userProfileToggle}
+                        logout={this.logout}
                     />
                     {this.renderChat()}
                     <MessageForm sender={this.sendMessage} sendType={this.sendType} />

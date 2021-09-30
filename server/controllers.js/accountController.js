@@ -22,7 +22,6 @@ const sendUpdatedUser = (user) => {
 exports.password = (req, res, next) => {
     // Get old and new password from request.
     const {password, newPassword} = req.body;
-    console.log(req);
     let user = req.user;
     // Check if the password is wrong then create error.
     if (!user.checkPassword(password)){
@@ -30,6 +29,6 @@ exports.password = (req, res, next) => {
     }
     // Update password.
     user.password = newPassword;
-    user.save().then(updated => res.json())
+    user.save().then(updated => res.json()) 
     .catch(next);
 };

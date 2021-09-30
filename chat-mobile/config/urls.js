@@ -1,5 +1,5 @@
-const SOCKET = 'ws://192.168.1.5:3001';
-const API = 'http://192.168.1.5:3001';
+const SOCKET = 'ws://192.168.1.2:3001';
+const API = 'http://192.168.1.2:3001';
 
 const urls = {
     SOCKET: SOCKET,

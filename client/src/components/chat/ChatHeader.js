@@ -10,6 +10,7 @@ const ChatHeader = props => {
 
     const logout = () => {
         Auth.logout();
+        /* mine */props.logout();
         props.history.push('/');
     };
 

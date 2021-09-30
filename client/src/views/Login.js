@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Form, Input, Button } from 'reactstrap';
 import Error from 'components/Error';
-import Logo from 'assets/logo.png'; 
+import Logo from 'assets/jagulogo.jpg'; 
 import Auth from 'Auth';
 import axios from 'axios';
 
@@ -33,12 +33,12 @@ class Login extends React.Component {
         return (
         <Card className="auth  col-sm-6 col-lg-3 px-2 ">
             <Form onSubmit={this.onSubmit}>
-                <img src={Logo} alt="" width="200" />
+                <img src={Logo} alt="" className="logo" />
                 <h5 className="mb-4">Log in </h5>
                 <Error error={this.state.error}/>
                 <Input value={this.state.username} name="username" onChange={this.onChange} placeholder="username" required />
                 <Input type="password" value={this.state.password} name="password" onChange={this.onChange} placeholder="password" required />
-                <Button color="primary" block className="mb-3"> login </Button>
+                <Button color="dark" block className="mb-3"> login </Button>
                 <br/>
                 <small><Link to="/register">sign up</Link></small>
                 <p className="m-3 text-muted">&copy; { new Date().getFullYear() }</p>
