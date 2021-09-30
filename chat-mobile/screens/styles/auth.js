@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
         color: Colors.WHITE
     },
     logoContainer: {
-        backgroundColor: Colors.GRAY
+        backgroundColor: Colors.BLACK
     },
     logo: {
         alignSelf: 'center',

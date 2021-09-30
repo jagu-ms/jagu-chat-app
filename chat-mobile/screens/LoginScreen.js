@@ -3,7 +3,7 @@ import { Keyboard, KeyboardAvoidingView, Image} from 'react-native';
 import { Strings, Axios, Urls, Auth } from "../config";
 import { Toast, Container, Content, View, Text, Item, Input, Icon, Button  } from 'native-base';
 import styles from './styles/auth';
-import companyLogo from '../assets/images/logo.png';
+import companyLogo from '../assets/images/jagulogo.jpg';
 import { Loader } from '../components';
 
 

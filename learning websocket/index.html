@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket</title>
+</head>
+<body>
+    <h1>WebSocket Echo Client</h1>
+    <h3>Connected clients : <span id="counter"></span></h3>
+    <div id="output">
+    </div>
+    <script>
+        
+        output = document.getElementById('output');
+        counter = document.getElementById('counter');
+
+        function log(text) {
+            let p = document.createElement('p');
+            p.textContent = text;
+            output.appendChild(p);
+        }
+
+        const ws = new WebSocket('ws://localhost:3000');
+
+        ws.onopen = e => {
+            log('connected');
+            //sending message
+            ws.send('Hello WebSocket');
+            log('Message sent');
+        }
+        ws.onclose = e => log('disconnected');
+        ws.onerror = e => log('Error.');
+        //Message receiving
+        ws.onmessage = e => {
+            isNaN(e.data) ? log('Message received : ' + e.data) : counter.textContent = e.data;
+        }
+    </script>
+</body>
+</html>
