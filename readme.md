@@ -1,5 +1,5 @@
 #chat app
-A simple chat app that look like whatsapp
+-A simple chat app that look like whatsapp
 
 #used
 bootstrap 4
